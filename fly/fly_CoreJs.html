@@ -1,0 +1,154 @@
+<html>
+   <head>
+      <title>Fly with Aitebaar</title>
+      <link rel="icon" type="image/jpg" href="../fly/assets/Images/flymore.jpg" />
+      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <link rel="stylesheet" href="../fly/assets/Css/fly_CoreJs.css">
+      <link rel="stylesheet" href="../fly/assets/ThirdParty/jquery-ui.css">
+     <!-- <link href="../fly/assets/ThirdParty/fonts.css" rel="stylesheet">-->
+      <script type="text/javascript" src="../fly/assets/ThirdParty/jquery-1.12.4.js"></script>
+      <script src="../fly/assets/ThirdParty/handlebars.js"></script>
+      <script type="text/javascript" src="../fly/assets/ThirdParty/jquery-ui.js"></script>
+      <script type="text/javascript" src="../fly/assets/Js/fly_CoreJsWithoutJquery.js"></script>
+   </head>
+   <body>
+      <div class="flight-container container">
+         <h1>Fly with Aitebaar</h1>
+         <div class="search-panel">
+            <nav>
+               <ul class="toggle-way">
+                  <li class="one-way active">One Way</li>
+                  <li class="round-trip">Return</li>
+               </ul>
+            </nav>
+            <Form class="search-flight-form">
+               <fieldset class="select-dropdown depart-city">
+                  <select class="origin city-list" placeholder="Enter the Origin City">						
+                  </select>
+					<p class="error hide">Origin City and Destination City Cannot be Same.</p>				  
+               </fieldset>
+               <fieldset class="select-dropdown arrived-city">
+                  <select  class="destination city-list" placeholder="Enter the Destination City">						
+                  </select>
+                  <p class="error hide">Origin City and Destination City Cannot be Same.</p>
+               </fieldset>
+               <fieldset class ="depart-date-picker">
+                  <input type="text" id="depart-date" placeholder="Departure Date"/>
+                  <p class="error hide">Please select depature date</p>
+               </fieldset >
+               <fieldset class="arrived-date-picker hide">
+                  <input type="text" id="arrival-date"  placeholder="Arrival Date"/>
+                  <p class="error hide">Please select arrival date</p>
+               </fieldset>
+               <fieldset class="select-dropdown passenger-dropdown ">
+                  <select  class="passenger"  placeholder="Passenger/s">
+                     <option value="1">1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                     <option value="more">More</option>
+                  </select>
+               </fieldset>
+               <fieldset class="traveller-count hide">
+                  <p class="travellers">Passengers More than 10 : </p>
+                  <input type="text" id="passenger-count" placeholder="How Many Are You Guys ?"/>
+                  <p class="error hide">Please enter the required field with numeric value more than 5</p>
+               </fieldset>
+			   
+			   <fieldset>  <div class="priceFilterDiv">
+               <p class="priceFilter">
+                  <label for="amount">Price Range:</label>
+               </p>
+               <div id="slider-range"></div>
+               <input type="text" id="amount" >
+            </div></fieldset>
+               <button class="search-btn" type="button" >Search</button>
+            </Form>
+          
+         </div>
+         <div id="search-result" class="search-result " >
+		 <div class="hide" id="result-content">
+          <div id="first-trip">
+		   </div>
+		  <div id="return-trip">
+		  </div>
+		  </div>
+         </div>
+      </div>
+      </div>
+      <script id="oneway-template" type= "text/x-handlebars-template">
+	 
+         <div>
+         <p class="fly-between"><span class="depart-icon"></span>{{originCity}} to {{destination}}</p>
+         
+         <p>{{found}} Flights found on {{week}} - {{date}} {{month}} </p>
+         </div>
+         <ul class="header-row">
+         	<li>Flight</li>
+         	<li>departure</li>
+         	<li>arrival</li>
+         	<li class="header-type">Type</li>
+         	<li>Price</li>
+         	<li>Book</li>
+         </ul>
+		 <div class="">
+		{{#checklength data 0}}   
+			{{#each data}}
+
+				<ul class="reflect-row">
+				<li class="{{fName}} flight-img"></li>
+				<li class="flyName"><strong>{{name}} Airlines </strong> <span>{{id}}</span></li>
+				<li class="align">{{departure}}</li>
+				<li class="align">{{arrival}}</li>
+				<li class="flyName type"><strong>{{type}} </strong><span>{{msg}}</span></li>         	
+				<li class="align">{{price}}</li>
+				<li class="book-now align"><button>Book Now</button></li>
+				
+				</ul>
+			 {{/each}}
+		{{else}}
+			<p> No Fights Found .... Please Search Again</p>
+		{{/checklength}}
+         
+		 </div>
+	
+         
+         
+      </script>
+	  
+	   <script id="roundtrip-template" type= "text/x-handlebars-template">
+		<div>
+         <p class="fly-between"><span class="depart-icon"></span>{{originCity}} to {{destination}}</p>
+         
+         <p>{{found}} Flights found on {{week}} - {{date}} {{month}} </p>
+         </div>
+		 <div class="">
+		  <ul class="header-row roundTrip-row">
+         	<li class="details">Flight</li>
+         	<li>departure</li>
+         	<li>arrival</li>
+         	
+         	<li>Price</li>
+         	
+         </ul>
+		{{#checklength data 0}}   
+			{{#each data}}
+				<ul class="reflect-row roundTrip-row">
+					<input type="radio" name="{{way}}"/>
+					<li class="{{fName}} flight-img"></li>
+					<li class="flyName"><span>{{id}} {{type}}</span></li>
+					<li class="align roundTrip-align">{{departure}}</li>
+					<li class="align roundTrip-align">{{arrival}}</li>				    	
+					<li class="align roundTrip-align priceText">{{price}}</li>			
+				</ul>
+			 {{/each}}
+		{{else}}
+			<p> No Fights Found .... Please Search Again</p>
+		{{/checklength}}
+         
+		 </div>
+	   
+	   </script>
+   </body>
+</html>
